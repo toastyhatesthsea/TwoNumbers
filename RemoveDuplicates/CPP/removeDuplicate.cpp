@@ -16,8 +16,6 @@ public:
         int answer = 0;
         int currentNum = someVector[0];
         int nextNum = 0;
-        int j = 1;
-        bool done = false;
 
         for (int i = 1; i < someVector.size(); i++)
         {
