@@ -51,7 +51,6 @@ public:
                     answer = meow.append(answer);
                     answer.push_back(secondChar);
                 }
-                printf("%s\n", answer.c_str());
             }
             else
             {
