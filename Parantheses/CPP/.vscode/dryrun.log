@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/redwoodhugger/Documents/Leets/TwoNumbers/Parantheses/CPP'
+make: Leaving directory '/home/redwoodhugger/Documents/Leets/TwoNumbers/Parantheses/CPP'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
