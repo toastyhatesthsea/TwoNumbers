@@ -38,7 +38,7 @@ bool Parantheses::isValidParantheses()
             }
         }
     }
-    if(!paranStack.empty())
+    if (!paranStack.empty())
     {
         answer = false;
     }
@@ -86,12 +86,103 @@ bool Parantheses::isValidLeftParantheses(char aChar)
     return answer;
 }
 
+string Parantheses::getParantheses(int index)
+{
+    bool valid = true;
+    string totalString = aString;
+    int correctCount = 0; // Keeps track of the amount of correct Parantheses
+    stack<int> someStack;
+
+    while (valid && index < aString.size())
+    {
+        char someChar = aString.at(index);
+
+        if (isValidLeftParantheses(someChar))
+        {
+            someStack.push(index);
+        }
+        else if (isValidRightParantheses(someChar) && !someStack.empty())
+        {
+            bool isCorrectParan = false;
+            int poppedParanIndex = someStack.top();
+            char poppedParan = aString.at(poppedParanIndex);
+            someStack.pop();
+            if (poppedParan == '{' && someChar == '}')
+            {
+                isCorrectParan = true;
+            }
+            else if (poppedParan == '[' && someChar == ']')
+            {
+                isCorrectParan = true;
+            }
+            else if (poppedParan == '(' && someChar == ')')
+            {
+                isCorrectParan = true;
+            }
+
+            if (isCorrectParan == true)
+            {
+                totalString.replace(index, 1, " ");
+                totalString.replace(poppedParanIndex, 1, " ");
+                correctCount++;
+            }
+        }
+        index++;
+    }
+    return totalString;
+}
+
+int Parantheses::longestValidParantheses()
+{
+    int answer = 0;
+    int current = 0;
+    string returnedString = getParantheses(0);
+    bool foundWellFormedParantheses = false;
+
+    for (int i = 0; i < returnedString.size(); i++)
+    {
+
+        char someChar = returnedString.at(i);
+
+        if (someChar == ' ')
+        {
+            current++;
+
+            if (current > answer)
+            {
+                answer = current;
+            }
+        }
+        else
+        {
+            current = 0;
+        }
+    }
+    return answer;
+}
+
 int main(int argc, char **someArgs)
 {
-    string meow = "{}";
+    string meow = "{{}}()";
+    string testOne = "{{{(){";
+    string testTwo = "(((()(()";
 
-    Parantheses someParan = Parantheses(meow);
-    bool answer = someParan.isValidParantheses();
+    string testThree = "{{{(){()()";
+
+    string testFour = "}}}()}";
+
+    string testFive = "{{()}}";
+    string testSix = "{((((((}";
+    string testSeven = "(((((()";
+
+    testFive.replace(0, 1, " ");
+
+    Parantheses someParan = Parantheses(testThree);
+    int answer = someParan.longestValidParantheses();
+
+    // TODO Can push parantheses index values into an array
+    // TODO Or you can simply erase properly formed parantheses from the original string
+    // TODO and then count how large the uninterrupted 'spaces' are and return the largest one
 
     return 0;
 }
